@@ -31,6 +31,8 @@
         'views/ks_project_scrum_view.xml',
         'views/ks_helpdesk_support.xml',
         'views/ks_scrum_portal.xml',
+        'views/project_scrum_role_view.xml',
+        'views/project_scrum_devteam_view.xml',
 
     ],
     "application": True,

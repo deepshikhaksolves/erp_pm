@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ks_view_project_scrum_team_form" model="ir.ui.view">
+            <field name="name">ks.project.scrum.devteam</field>
+            <field name="model">project.scrum.devteam</field>
+            <field name="inherit_id" ref="project_scrum_agile.view_project_scrum_team_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='developer_ids']" position="after">
+                    <field name="scrum_team_member_ids" widget="many2many">
+                         <kanban quick_create="false" create="true" delete="true">
+                             <field name="id"/>
+                             <field name="person_name"/>
+                             <field name="name"/>
+                             <templates>
+                                 <t t-name="kanban-box">
+                                     <div class="oe_kanban_global_click" style="max-width: 200px">
+                                         <div class="o_kanban_record_top">
+                                             <img t-att-src="kanban_image('project.scrum.role', 'image_1920', record.id.raw_value)" height="40" width="40" class="oe_avatar oe_kanban_avatar_smallbox mb0" alt="Avatar"/>
+                                             <div class="o_kanban_record_headings ml8">
+                                                 <strong class="o_kanban_record_title"><field name="person_name"/></strong>
+                                                 <br/><p class="o_kanban_record_title"><field name="name"/></p>
+                                             </div>
+                                             <a t-if="! read_only_mode" type="delete" class="text-danger">
+                                                 <i class="fa fa-times" title="Delete"></i>
+                                             </a>
+                                         </div>
+                                     </div>
+                                 </t>
+                             </templates>
+                         </kanban>
+                    </field>
+                </xpath>
+                <xpath expr="//field[@name='developer_ids']" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

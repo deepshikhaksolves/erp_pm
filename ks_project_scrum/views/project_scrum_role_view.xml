@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ks_view_scrum_role_form" model="ir.ui.view">
+            <field name="name">ks.view.scrum.role.form</field>
+            <field name="model">project.scrum.role</field>
+            <field name="inherit_id" ref="project_scrum_agile.view_scrum_role_form"/>
+            <field name="arch" type="xml">
+            <!--    Update label of name to desgnation            -->
+                <xpath expr="//field[@name='name']" position="replace">
+                     <field name="name" required="1"/>
+                     <field name="scrum_devteam_id"/>
+                     <field name="image_1920" widget="image" class="oe_avatar"
+                            options="{&quot;zoom&quot;: true, &quot;preview_image&quot;:&quot;image_128&quot;}"/>
+                </xpath>
+                <xpath expr="//field[@name='person_name']" position="after">
+                    <field name="employee_id" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='person_name']" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
