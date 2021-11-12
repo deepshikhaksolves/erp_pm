@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--        INHERITING THE EXISTING FORM VIEW FOR 'hr.employee' MODEL-->
+        <record id="ks_view_employee_form" model="ir.ui.view">
+            <field name="name">ks.hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page name="project_team_role" string="Project Team ">
+                        <field name="role_ids">
+                            <tree editable="bottom">
+                                <field name="scrum_devteam_id" />
+                                <field name="project_id"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <!--Made product_id, journal_id and project_task_id invisible field.-->
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='journal_id']" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='project_task_id']" position="attributes">
+                     <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

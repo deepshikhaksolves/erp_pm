@@ -33,7 +33,8 @@
         'views/ks_scrum_portal.xml',
         'views/project_scrum_role_view.xml',
         'views/project_scrum_devteam_view.xml',
-
+        'views/hr_employee_view.xml',
+        'views/public_holidays_view.xml',
     ],
     "application": True,
     "installable": True,
