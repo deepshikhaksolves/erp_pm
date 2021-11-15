@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--        INHERITING THE EXISTING FORM VIEW FOR 'ks.project.type' MODEL-->
+        <record id="view_ks_project_type_form" model="ir.ui.view">
+            <field name="name">ks.project.type.form</field>
+            <field name="model">ks.project.type</field>
+            <field name="arch" type="xml">
+                <form string="Project Type">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--        INHERITING THE EXISTING TREE VIEW FOR 'ks.project.type' MODEL-->
+        <record id="view_ks_project_type_tree" model="ir.ui.view">
+            <field name="name">ks.project.type.form</field>
+            <field name="model">ks.project.type</field>
+            <field name="arch" type="xml">
+                <tree string="Project Type">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!--        Action window for 'ks.project.type' model-->
+        <record id="ks_open_project_type_view" model="ir.actions.act_window">
+            <field name="name">Project Type</field>
+            <field name="res_model">ks.project.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--        Menu for 'ks.project.type' model. It will be under project configuration menu.-->
+        <menuitem
+            id="ks_menu_project_type"
+            name="Project Type"
+            parent="project.menu_project_config"
+            action="ks_open_project_type_view"/>
+
+    </data>
+</odoo>

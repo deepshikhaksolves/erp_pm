@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data noupdate="1">
+        <!-- Default records on 'project.task.type' on model. -->
+        <record id="ks_project_type_product" model="ks.project.type">
+            <field name="name">Product</field>
+        </record>
+        <record id="ks_project_type_service" model="ks.project.type">
+            <field name="name">Service</field>
+        </record>
+    </data>
+</odoo>

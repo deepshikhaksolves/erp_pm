@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+         <!--        INHERITING THE EXISTING FORM VIEW FOR 'project.project' MODEL-->
+        <record id="ks_project_project_from_view" model="ir.ui.view">
+            <field name="name">ks.project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr = "//field[@name='is_scrum']" position="before">
+                    <group>
+                        <field name="ks_project_type"/>
+                        <field name="ks_billing_type"/>
+                    </group>
+                </xpath>
+            </field>
+          </record>
+    </data>
+ </odoo>

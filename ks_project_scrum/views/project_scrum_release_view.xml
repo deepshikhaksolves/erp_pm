@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--        INHERITING THE EXISTING FORM VIEW FOR 'project.scrum.release' MODEL-->
+        <record id="ks_view_project_scrum_release_form" model="ir.ui.view">
+            <field name="name">ks.view.project.scrum.release.form</field>
+            <field name="model">project.scrum.release</field>
+            <field name="inherit_id" ref="project_scrum_agile.view_project_scrum_release_form"/>
+            <field name="arch" type="xml">
+            <!--         Making sprint non editable.-->
+                <xpath expr="//field[@name='sprint_ids']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

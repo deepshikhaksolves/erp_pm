@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_type_developer,project_scrum.access_project_type_developer,model_ks_project_type,project_scrum_agile.group_scrum_developer,1,1,1,1
