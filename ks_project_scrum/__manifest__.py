@@ -24,7 +24,7 @@
     'price': '',
     'version': '14.0.1.0.0',
     'support': 'sales@ksolves.com',
-    'depends': ['website_helpdesk_support_ticket','project_scrum_portal','hr_holidays'],
+    'depends': ['website_helpdesk_support_ticket', 'project_scrum_portal', 'hr_holidays'],
     'data': [
         'static/ir.model.access.csv',
         'views/assets.xml',

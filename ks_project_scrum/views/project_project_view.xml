@@ -12,6 +12,8 @@
                     <group>
                         <field name="ks_project_type"/>
                         <field name="ks_billing_type"/>
+                        <field name="ks_short_code"/>
+                        <field name="ks_project_sequence_id" invisible="1"/>
                     </group>
                 </xpath>
             </field>

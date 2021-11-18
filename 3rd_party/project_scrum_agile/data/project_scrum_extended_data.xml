@@ -31,21 +31,22 @@
             <field name="default_view">True</field>
             <field name="state">testing</field>
         </record>
-        <record id="project.project_stage_2" model="project.task.type">
-            <field name="sequence">20</field>
-            <field name="name">Done</field>
-            <field name="fold" eval="True"/>
-            <field name="default_view">True</field>
-            <field name="state">done</field>
-        </record>
-        <record id="project.project_stage_3" model="project.task.type">
-            <field name="sequence">30</field>
-            <field name="name">Cancelled</field>
-            <field name="legend_done">Ready to reopen</field>
-            <field name="fold" eval="True"/>
-            <field name="default_view">True</field>
-            <field name="state">cancelled</field>
-        </record>
+<!--        These lines are comment as it's was giving error on staging database.-->
+<!--        <record id="project.project_stage_2" model="project.task.type">-->
+<!--            <field name="sequence">20</field>-->
+<!--            <field name="name">Done</field>-->
+<!--            <field name="fold" eval="True"/>-->
+<!--            <field name="default_view">True</field>-->
+<!--            <field name="state">done</field>-->
+<!--        </record>-->
+<!--        <record id="project.project_stage_3" model="project.task.type">-->
+<!--            <field name="sequence">30</field>-->
+<!--            <field name="name">Cancelled</field>-->
+<!--            <field name="legend_done">Ready to reopen</field>-->
+<!--            <field name="fold" eval="True"/>-->
+<!--            <field name="default_view">True</field>-->
+<!--            <field name="state">cancelled</field>-->
+<!--        </record>-->
 
         <!-- TASK -->
         <record id="project.mt_task_new" model="mail.message.subtype">
@@ -281,13 +282,13 @@
             <field name="parent_id" eval="ref('mt_story_closed')"/>
             <field name="relation_field">project_id</field>
         </record>
-
-        <record id="seq_task_number" model="ir.sequence">
-            <field name="name">Task Number</field>
-            <field name="code">project.task.number</field>
-            <field name="prefix">TAR-</field>
-            <field name="padding">10</field>
-        </record>
+<!-- This is commented as it's not need in Ksolves customisation. -->
+<!--        <record id="seq_task_number" model="ir.sequence">-->
+<!--            <field name="name">Task Number</field>-->
+<!--            <field name="code">project.task.number</field>-->
+<!--            <field name="prefix">TAR-</field>-->
+<!--            <field name="padding">10</field>-->
+<!--        </record>-->
 
         <record id="seq_issue_number" model="ir.sequence">
             <field name="name">Issue Number</field>

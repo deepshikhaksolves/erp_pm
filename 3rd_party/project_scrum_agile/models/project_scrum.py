@@ -366,12 +366,14 @@ class ProjectScrumSprint(models.Model):
         compute='_compute_meeting_count',
     )
 
-    @api.model
-    def create(self, vals):
-        if not vals.get('sprint_number'):
-            vals['sprint_number'] = self.env['ir.sequence'].next_by_code(
-                'product.sprint.number') or '/'
-        return super(ProjectScrumSprint, self).create(vals)
+    # This is commented as it's not need in Ksolves customisation.
+    # New sequence is created on sprint bases.
+    # @api.model
+    # def create(self, vals):
+    #     if not vals.get('sprint_number'):
+    #         vals['sprint_number'] = self.env['ir.sequence'].next_by_code(
+    #             'product.sprint.number') or '/'
+    #     return super(ProjectScrumSprint, self).create(vals)
 
     @api.depends('name', 'sprint_number')
     def name_get(self):

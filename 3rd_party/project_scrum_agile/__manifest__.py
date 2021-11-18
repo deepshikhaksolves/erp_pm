@@ -80,6 +80,7 @@
         'wizards/project_scrum_email_view.xml',
         'wizards/analytic_timesheet_view.xml',
         'views/project_scrum_devteam_view.xml',
+        'data/project_scrum_extended_data.xml'
     ],
     'demo': ['data/project_scrum_extended_data.xml'],
     'images': ['static/description/Project Scrum Management Agile Methodology_banner.png'],

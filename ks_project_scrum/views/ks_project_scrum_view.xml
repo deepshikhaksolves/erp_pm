@@ -12,6 +12,34 @@
                         <field string="Tasks" name="sprint_tasks_count" widget="statinfo"/>
                     </button>
                 </xpath>
+                <!-- Adding sprint code on form view.      -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="ks_sprint_code"/>
+                </xpath>
+                <!--  Internal schedule dates for a sprint.  -->
+                <xpath expr="//field[@name='expected_hours']/.." position="after">
+                    <group name="ks_sprint_dates">
+                        <group string="Internal Dates">
+                            <field name="ks_internal_eta_date"/>
+                            <field name="ks_internal_sow_date"/>
+                            <field name="ks_internal_qa_date"/>
+                            <field name="ks_internal_delivery_date"/>
+                            <field name="ks_internal_uat_date"/>
+                            <field name="ks_internal_bug_fix_date"/>
+                        </group>
+                    </group>
+                </xpath>
+                <!--  Client commitment dates for a sprint.  -->
+                <xpath expr="//group[@name='ks_sprint_dates']" position="inside">
+                    <group string="Clients Dates">
+                        <field name="ks_eta_date"/>
+                        <field name="ks_sow_date"/>
+                        <field name="ks_qa_date"/>
+                        <field name="ks_delivery_date"/>
+                        <field name="ks_uat_date"/>
+                        <field name="ks_bug_fix_date"/>
+                    </group>
+                </xpath>
             </field>
         </record>
     </data>
