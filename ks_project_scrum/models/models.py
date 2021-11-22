@@ -105,3 +105,9 @@ class KsProjectScrumSprint(models.Model):
                 raise ValidationError(
                     _("This release is already linked with another sprint. Please create a new release with this "
                       "sprint."))
+
+    """ Scheduler for sprint build date """
+    @api.model
+    def reminder_sprint_build(self):
+        print("method called")
+        # try:

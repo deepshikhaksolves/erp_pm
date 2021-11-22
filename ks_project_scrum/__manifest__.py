@@ -39,6 +39,8 @@
         'views/ks_project_type.xml',
         'data/ks_project_type_data.xml',
         'views/project_project_view.xml',
+        'views/email/build_ready_reminder_email.xml',
+        'views/ir_cron.xml',
     ],
     "application": True,
     "installable": True,
