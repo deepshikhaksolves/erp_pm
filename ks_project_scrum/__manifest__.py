@@ -39,6 +39,7 @@
         'views/ks_project_type.xml',
         'data/ks_project_type_data.xml',
         'views/project_project_view.xml',
+        'views/project_task_view.xml'
     ],
     "application": True,
     "installable": True,

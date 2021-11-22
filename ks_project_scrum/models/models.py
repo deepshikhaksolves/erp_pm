@@ -74,7 +74,7 @@ class KsProjectScrumSprint(models.Model):
                         "code": "project.project %s" % ks_sprint_code,
                         "prefix": "(# %s - " % project_sprint,
                         "suffix": ")",
-                        "padding": 1
+                        "padding": 3
                     })
                     self.ks_sprint_sequence_id = seq.id
                 else:
