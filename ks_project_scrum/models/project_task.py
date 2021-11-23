@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    # Removed related ids from both sprint_id and release_id fields.
+    # Removed related ids from both sprint_id field.
     sprint_id = fields.Many2one(
         'project.scrum.sprint',
         'Sprint',
@@ -16,18 +16,17 @@ class ProjectTask(models.Model):
     release_id = fields.Many2one(
         'project.scrum.release',
         'Release',
-        store=True
+        related='sprint_id.release_id',
+        store=True,
+        readonly=True
     )
 
     @api.model
     def create(self, vals):
         """Get project task number on task create."""
         res = super(ProjectTask, self).create(vals)
-        # project_latest_sprint_id = self.env['project.scrum.sprint'].search([(
-        #     'project_id', '=', res.project_id.id)], limit=1).id
-        # # To pick last sprint if not selected.
-        # if not res.sprint_id:
-        #     res.sprint_id = project_latest_sprint_id
+        if not res.sprint_id:
+            res.sprint_id = vals['sprint_id']
         if res.task_number == '/':
             if res.project_id:
                 # If scrum project get sequence from
