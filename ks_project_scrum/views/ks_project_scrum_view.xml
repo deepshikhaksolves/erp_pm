@@ -24,7 +24,7 @@
                             <field name="ks_internal_sow_date"/>
                             <field name="ks_internal_qa_date"/>
                             <field name="ks_internal_delivery_date"/>
-                            <field name="ks_internal_uat_date"/>
+                            <!-- <field name="ks_internal_uat_date"/> -->
                             <field name="ks_internal_bug_fix_date"/>
                         </group>
                     </group>

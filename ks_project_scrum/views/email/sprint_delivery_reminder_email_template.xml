@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="0">
-        <record id="build_reminder_mail_template" model="mail.template">
-          <field name="name">Build reminder e-mail template</field>
+        <record id="sprint_delivery_reminder_mail_template" model="mail.template">
+          <field name="name">Sprint Delivery e-mail template</field>
           <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
-          <field name="subject">${object.project_id.name} | ${object.name} | Build Reminder</field>
+          <field name="subject">${object.project_id.name} | ${object.name} | Delivery/Deployement Reminder</field>
           <field name="email_to">${ctx['email_to']}</field>
           <field name="model_id" ref="ks_project_scrum.model_project_scrum_sprint"/>
           <field name="auto_delete" eval="False"/>
@@ -20,7 +20,7 @@
                                 </div>
                                 <div style="margin-left: 1.2rem;margin-bottom:1em;">
                                     <p style="color: #676767;line-height: 145%;margin: 10px 0 0 0;font-size: 16px;">
-                                        This is a gentle reminder that the build date for ${object.project_id.name} : ${object.name} is due on ${object.ks_internal_qa_date}.
+                                        This is a gentle reminder that the internal delivery/deployment date for ${object.project_id.name} : ${object.name} is due on ${object.ks_internal_delivery_date}.
                                     </p>
                                 </div>
 
