@@ -32,6 +32,7 @@ odoo.define('project_scrum_portal.scrum_portal', function (require) {
         			],
             	});
 		        chart.render();
+		        important_timelines(result);
 			});
     		
         	ajax.jsonRpc("/get_sprint_data", 'call', {
@@ -58,6 +59,7 @@ odoo.define('project_scrum_portal.scrum_portal', function (require) {
     				],
         		});
         		chart.render();
+        		important_timelines(result);
         	});
 			
 			ajax.jsonRpc("/get_sprint_data", 'call', {
@@ -78,6 +80,7 @@ odoo.define('project_scrum_portal.scrum_portal', function (require) {
     				]
     			});
     			chart.render();
+    			important_timelines(result);
     		});
         }
         
@@ -131,6 +134,7 @@ odoo.define('project_scrum_portal.scrum_portal', function (require) {
   		        ],
 			});
 			chart.render();
+			important_timelines(result);
 		});
     })
     
@@ -159,6 +163,7 @@ odoo.define('project_scrum_portal.scrum_portal', function (require) {
 		        ],
 			});
 			chart.render();
+			important_timelines(result);
 		});
     });
     
@@ -183,6 +188,7 @@ odoo.define('project_scrum_portal.scrum_portal', function (require) {
   		        ],
 			});
 			chart.render();
+			important_timelines(result);
 		});
     });
 
@@ -265,6 +271,39 @@ odoo.define('project_scrum_portal.scrum_portal', function (require) {
 		    interval: false,
 		});
 	});
+
+	function important_timelines(result){
+	    if(result.ks_eta_date.length) {
+	        $("#ks_eta_date").text(result.ks_eta_date[0]);
+        } else {
+            $("#ks_eta_date").text('');
+        }
+        if(result.ks_sow_date.length) {
+            $("#ks_sow_date").text(result.ks_sow_date[0]);
+        } else {
+            $("#ks_sow_date").text('');
+        }
+        if(result.ks_qa_date.length) {
+            $("#ks_qa_date").text(result.ks_qa_date[0]);
+        } else {
+            $("#ks_qa_date").text('');
+        }
+        if(result.ks_delivery_date.length) {
+            $("#ks_delivery_date").text(result.ks_delivery_date[0]);
+        } else {
+            $("#ks_delivery_date").text('');
+        }
+        if(result.ks_uat_date.length) {
+            $("#ks_uat_date").text(result.ks_uat_date[0]);
+        } else {
+            $("#ks_uat_date").text('');
+        }
+        if(result.ks_bug_fix_date.length) {
+            $("#ks_bug_fix_date").text(result.ks_bug_fix_date[0]);
+	    } else {
+            $("#ks_bug_fix_date").text('');
+        }
+	}
  });
 
 	//optional

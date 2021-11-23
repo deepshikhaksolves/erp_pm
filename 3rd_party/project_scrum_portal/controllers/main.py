@@ -257,6 +257,7 @@ class CustomerPortal(CustomerPortal):
                     0].id
         project_dashbord = request.env['project.project'].sudo().search(
             [('id', '=', request.params.get('project'))])
+
         values.update({
             'date': date_begin,
             'date_end': date_end,
@@ -274,15 +275,36 @@ class CustomerPortal(CustomerPortal):
             'pager': pager,
             'cookie_value': cookie_value,
             'project_val': project_val,
-            'default_sprints': default_sprints
+            'default_sprints': default_sprints,
         })
         return request.render("portal.portal_my_home", values)
+
+    @http.route('/my/project_team_member', type='http', auth='user', website=True)
+    def project_team_members(self, project=None, **post):
+        project_dashbord = request.env['project.project'].sudo().search(
+            [('id', '=', request.params.get('project'))])
+
+        values = {}
+        if project_dashbord.team_id and project_dashbord.team_id.scrum_team_member_ids:
+            scrum_team_members = project_dashbord.team_id.scrum_team_member_ids
+            values.update({
+                'team_members': scrum_team_members,
+            })
+
+        return request.render("project_scrum_portal.project_team_members", values)
 
     @http.route('/get_sprint_data', type='json', auth='user', website=True)
     def get_sprint_data(self, **post):
         burndown_list1 = []
         burndown_list2 = []
         stg_new = {}
+        ks_eta_date = tuple()
+        ks_sow_date = tuple()
+        ks_qa_date = tuple()
+        ks_delivery_date = tuple()
+        ks_uat_date = tuple()
+        ks_bug_fix_date = tuple()
+
         if post.get('sprint_id'):
             domain = [('sprint_id', '=', int(post.get('sprint_id')))]
             burndown = request.env[
@@ -305,8 +327,24 @@ class CustomerPortal(CustomerPortal):
                         'y': r.remaining_hours
                     }
                     burndown_list2.append(data1)
-        result = {'remaining_points': burndown_list1,
-                  'remaining_hours': burndown_list2}
+            current_sprint = request.env['project.scrum.sprint'].sudo().browse(int(post.get('sprint_id')))
+            ks_eta_date = current_sprint.ks_eta_date,
+            ks_sow_date = current_sprint.ks_sow_date,
+            ks_qa_date = current_sprint.ks_qa_date,
+            ks_delivery_date = current_sprint.ks_delivery_date,
+            ks_uat_date = current_sprint.ks_uat_date,
+            ks_bug_fix_date = current_sprint.ks_bug_fix_date,
+
+        result = {
+                  'remaining_points': burndown_list1,
+                  'remaining_hours': burndown_list2,
+                  'ks_eta_date': ks_eta_date,
+                  'ks_sow_date': ks_sow_date,
+                  'ks_qa_date': ks_qa_date,
+                  'ks_delivery_date': ks_delivery_date,
+                  'ks_uat_date': ks_uat_date,
+                  'ks_bug_fix_date': ks_bug_fix_date,
+                  }
         return result
 
     @http.route('/get_sprint_wise_data', type='json', auth='user',

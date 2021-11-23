@@ -252,7 +252,8 @@
                                                                         <div class="col-md-4">
                                                                             <img style="width: 100px;height: 100px;border-radius: 50%;" src="/project_scrum_portal/static/src/img/team.png" />
                                                                             <div class="at-user__name">
-                                                                                <t t-esc="project_dashbord.team_id.name" />
+                                                                                <a t-att-href="'/my/project_team_member'+project_val "
+                                                                                   t-esc="project_dashbord.team_id.name"/>
                                                                             </div>
                                                                             <div class="at-user__title">
                                                                                 Team
@@ -384,10 +385,91 @@
                         <div class="container" style="background:#fff;">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <header class="mt16 mb16" style="font-size: 18px; color: black; border-bottom: 1px solid lightgray;">
-                                        <span class="fa fa-clipboard mr10" />
+                                    <header class="mt16 mb16"
+                                            style="font-size: 18px; color: black; border-bottom: 1px solid lightgray;">
+                                        <span class="fa fa-calendar mr10"/>
+                                        <label>Sprint Timelines</label>
+                                    </header>
+                                    <div class="center-block mb32" style="height: auto;">
+                                        <div id="" class="container-fluid">
+                                            <div style="display:flex; flex-wrap: wrap;">
+                                                <div>
+                                                    <span style="text-align: left;">
+                                                        <b>ETA Date</b>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span style="margin:238px; text-align: right;" id="ks_eta_date"/>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex; flex-wrap: wrap;">
+                                                <div>
+                                                    <span style="text-align: left;">
+                                                        <b>SOW Date</b>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span style="margin:233px; text-align: right;" id="ks_sow_date"/>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex; flex-wrap: wrap;">
+                                                <div>
+                                                    <span style="text-align: left;">
+                                                        <b>QA Date</b>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span style="margin:246px; text-align: right;" id="ks_qa_date"/>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex; flex-wrap: wrap;">
+                                                <div>
+                                                    <span style="text-align: left;">
+                                                        <b>Delivery/Deployment Date</b>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span style="margin:117px; text-align: right;"
+                                                          id="ks_delivery_date"/>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex; flex-wrap: wrap;">
+                                                <div>
+                                                    <span style="text-align: left;">
+                                                        <b>UAT Date</b>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span style="margin:237px; text-align: right;" id="ks_uat_date"/>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex; flex-wrap: wrap;">
+                                                <div>
+                                                    <span style="text-align: left;">
+                                                        <b>Bug fixes Date</b>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span style="margin:200px; text-align: right;"
+                                                          id="ks_bug_fix_date"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="mt32 mb32">
+                        <div class="container" style="background:#fff;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <header class="mt16 mb16"
+                                            style="font-size: 18px; color: black; border-bottom: 1px solid lightgray;">
+                                        <span class="fa fa-clipboard mr10"/>
                                         <label>Tasks Stage -
-                                            <small>List of Tasks in stages</small></label>
+                                            <small>List of Tasks in stages</small>
+                                        </label>
                                     </header>
                                     <div class="center-block mb32" style="height: auto;">
                                         <div id="" class="container-fluid">
@@ -531,6 +613,49 @@
                     </section>
                 </div>
             </xpath>
+        </template>
+
+        <template id="project_team_members" name="Project Team Members">
+            <t t-call="portal.portal_layout">
+
+                <t t-if="team_members">
+                    <t t-set="title">Team Members</t>
+                </t>
+                <t t-if="not team_members">
+                    <div class="alert alert-warning mt8" role="alert">
+                        There are no Team Members Assigned to this Project.
+                    </div>
+                </t>
+                <t t-if="team_members">
+                    <!--                    <t t-call="portal.portal_table">-->
+                    <table style="margin-left: auto;margin-right: auto;" class="table rounded mb-0 col-10 bg-white o_portal_my_doc_table">
+                        <thead>
+                            <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
+                                <th class="text-left">Employee</th>
+                                <th class="text-left">Code</th>
+                                <th class="text-left">Role</th>
+                            </tr>
+                        </thead>
+                        <t t-foreach="team_members" t-as="member">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left">
+                                        <span t-esc="member.employee_id.name"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-esc="member.code"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="member.name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </t>
+                    </table>
+
+                    <!--                    </t>-->
+                </t>
+            </t>
         </template>
     </data>
 </odoo>
