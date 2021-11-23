@@ -7,9 +7,10 @@ class KsProjectScrumRole(models.Model):
     _inherit = ['project.scrum.role', 'mail.thread']
     _name = 'project.scrum.role'
 
-    name = fields.Char(string='Designation', required=True,
-                       tracking=True,
-                       help="Designation of employee for the linked project.")
+    designation_id = fields.Many2one('ks.role.designation',
+                                     string="Designation", tracking=True,
+                                     help="Designation of employee for the linked project.")
+    name = fields.Char('Designation Name', required=False, related="designation_id.name")
     employee_id = fields.Many2one('hr.employee', string="Employee",
                                   tracking=True, help="Employee")
     person_name = fields.Char(string='Employee Name', related='employee_id.name',

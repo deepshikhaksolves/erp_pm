@@ -11,7 +11,8 @@ class ProjectTask(models.Model):
     sprint_id = fields.Many2one(
         'project.scrum.sprint',
         'Sprint',
-        store=True
+        store=True,
+        domain="[('project_id', '=', project_id)]",
     )
     release_id = fields.Many2one(
         'project.scrum.release',
@@ -25,6 +26,7 @@ class ProjectTask(models.Model):
     def create(self, vals):
         """Get project task number on task create."""
         res = super(ProjectTask, self).create(vals)
+        # Forcefully saved sprint as it's not getting save on creates super.
         if not res.sprint_id:
             res.sprint_id = vals['sprint_id']
         if res.task_number == '/':
