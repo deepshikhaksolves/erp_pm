@@ -60,6 +60,9 @@ class KsProjectScrumSprint(models.Model):
     ks_internal_uat_date = fields.Date(string='Internal UAT Date', required=True,
                                        copy=False)
     ks_internal_bug_fix_date = fields.Date(string='Internal Bug fixes Date', copy=False)
+    ks_project_sprint_checklist_ids = fields.One2many('ks.sprint.checklist', 'sprint_id',
+                                                      string="Sprint Checklist", help="Link to Sprint Checklist.")
+    ks_doc_count = fields.Integer(compute='_compute_attached_docs_count', string="Number of documents attached")
 
     @api.constrains('ks_sprint_code', 'name')
     def create_project_sprint_sequence(self):
@@ -107,3 +110,14 @@ class KsProjectScrumSprint(models.Model):
                 raise ValidationError(
                     _("This release is already linked with another sprint. Please create a new release with this "
                       "sprint."))
+
+    def attachment_tree_view(self):
+        attachment_action = self.env.ref('base.action_attachment')
+        action = attachment_action.read()[0]
+        # attachment_ids = self.ks_project_sprint_checklist_ids.mapped('attachment').ids
+        action['domain'] = str([('id', 'in', self.ks_project_sprint_checklist_ids.mapped('attachment').ids)])
+        return action
+
+    def _compute_attached_docs_count(self):
+        for scrum_sprint in self:
+            scrum_sprint.ks_doc_count = len(self.ks_project_sprint_checklist_ids.mapped('attachment').ids)

@@ -7,6 +7,9 @@
             <field name="inherit_id" ref="project_scrum_agile.view_project_scrum_sprint_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('oe_button_box')]/button[hasclass('oe_stat_button')]" position="before">
+                    <button class="oe_stat_button" name="attachment_tree_view" type="object" icon="fa-file-text-o">
+                        <field string="Documents" name="ks_doc_count" widget="statinfo"/>
+                    </button>
                     <button class="oe_stat_button" type="object"
                             name="ks_sprint_tasks" icon="fa-tasks">
                         <field string="Tasks" name="sprint_tasks_count" widget="statinfo"/>
@@ -44,6 +47,30 @@
                         <field name="ks_uat_date"/>
                         <field name="ks_bug_fix_date"/>
                     </group>
+                </xpath>
+
+                <xpath expr="//notebook/page[last()]" position="after">
+                    <page string="Sprint Checklist" name="sprint_checklist">
+                        <field name="ks_project_sprint_checklist_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="is_completed" widget="boolean_toggle"/>
+                                <field name="attachment" string="Select Files"/>
+                                <field name="project_type" invisible="1"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="is_completed" widget="boolean_toggle"/>
+                                        <field name="project_type" invisible="1"/>
+                                    </group>
+                                    <field name="attachment"
+                                           string="Select Files"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
                 </xpath>
             </field>
         </record>

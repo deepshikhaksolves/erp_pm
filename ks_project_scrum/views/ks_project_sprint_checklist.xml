@@ -1,0 +1,42 @@
+<odoo>
+
+    <!-- ROLES TREE -->
+    <record model="ir.ui.view" id="view_scrum_project_sprint_checklist_tree">
+        <field name="name">view.project.sprint.checklist.tree</field>
+        <field name="model">ks.sprint.checklist.option</field>
+        <field name="arch" type="xml">
+            <tree string="Sprint Checklist Option">
+                <field name="name"/>
+                <field name="ks_project_type_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ROLES FORM -->
+    <record model="ir.ui.view" id="view_scrum_project_sprint_checklist_form">
+        <field name="name">view.project.sprint.checklist.form</field>
+        <field name="model">ks.sprint.checklist.option</field>
+        <field name="arch" type="xml">
+            <form string="Sprint Checklist Option">
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="ks_project_type_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ROLES ACTION -->
+    <record model="ir.actions.act_window" id="action_project_sprint_checklist_option">
+        <field name="name">Sprint Checklist Option</field>
+        <field name="res_model">ks.sprint.checklist.option</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ROLES MENU -->
+    <menuitem action="action_project_sprint_checklist_option"
+              id="menu_action_project_sprint_checklist_option"
+              name="Sprint Checklist" parent="project.menu_project_config"/>
+</odoo>

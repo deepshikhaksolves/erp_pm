@@ -8,3 +8,4 @@ from . import ks_project_type
 from . import project_project
 from . import ks_role_designation
 from . import project_task
+from . import ks_sprint_checklist_option

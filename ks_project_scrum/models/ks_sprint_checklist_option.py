@@ -15,9 +15,17 @@ class KsSprintCheckList(models.Model):
     _name = 'ks.sprint.checklist'
     _description = 'Sprint Checklist'
 
-    name = fields.Char(string='Name')
     sprint_id = fields.Many2one('project.scrum.sprint', string='Sprint', required=True)
-    related_document_type = fields.Selection([('url', 'URL'), ('attachment', 'Attachment')],
-                                             string='Related Document Type', required=True)
+    project_type = fields.Many2one('ks.project.type', related='sprint_id.ks_project_type_id')
+    name = fields.Many2one('ks.sprint.checklist.option', string='Name', domain="['|', ('ks_project_type_id', '=', "
+                                                                               "False), ('ks_project_type_id', '=', "
+                                                                               "project_type)]")
+
+    attachment = fields.One2many('ir.attachment', 'ks_sprint_checklist_id', ondelete='cascade')
+    is_completed = fields.Boolean('Done')
 
 
+class IrAttachment(models.Model):
+    _inherit = 'ir.attachment'
+
+    ks_sprint_checklist_id = fields.Many2one('ks.sprint.checklist')

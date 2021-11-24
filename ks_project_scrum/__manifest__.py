@@ -26,6 +26,7 @@
     'support': 'sales@ksolves.com',
     'depends': ['website_helpdesk_support_ticket', 'project_scrum_portal', 'hr_holidays', 'project'],
     'data': [
+        'security/ir.model.access.csv',
         'static/ir.model.access.csv',
         'views/assets.xml',
         'views/ks_project_scrum_release_view.xml',
@@ -39,7 +40,8 @@
         'views/ks_project_type.xml',
         'data/ks_project_type_data.xml',
         'views/project_project_view.xml',
-        'views/project_task_view.xml'
+        'views/project_task_view.xml',
+        'views/ks_project_sprint_checklist.xml',
     ],
     "application": True,
     "installable": True,
