@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!--        INHERITING THE EXISTING FORM VIEW FOR 'ks.project.type' MODEL-->
+        <!--       FORM VIEW FOR 'ks.project.type' MODEL-->
         <record id="view_ks_project_type_form" model="ir.ui.view">
             <field name="name">ks.project.type.form</field>
             <field name="model">ks.project.type</field>
@@ -15,7 +15,7 @@
                 </form>
             </field>
         </record>
-        <!--        INHERITING THE EXISTING TREE VIEW FOR 'ks.project.type' MODEL-->
+        <!--        TREE VIEW FOR 'ks.project.type' MODEL-->
         <record id="view_ks_project_type_tree" model="ir.ui.view">
             <field name="name">ks.project.type.form</field>
             <field name="model">ks.project.type</field>

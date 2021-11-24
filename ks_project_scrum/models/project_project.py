@@ -29,6 +29,6 @@ class Project(models.Model):
                     "code": "project.project %s" % ks_short_code,
                     "prefix": "(#%s - " % ks_short_code,
                     "suffix": ")",
-                    "padding": 1
+                    "padding": 3
                 })
                 self.ks_project_sequence_id = seq.id

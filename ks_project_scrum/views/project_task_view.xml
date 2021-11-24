@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        INHERITING THE EXISTING FORM VIEW FOR 'project.task' MODEL-->
+        <record id="ks_view_scrum_task_form" model="ir.ui.view">
+            <field name="name">ks.project.task.scrum.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <!--Adding conditions on sprint_id and release_id fields.-->
+                <xpath expr="//field[@name='sprint_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':0,'required':1}</attribute>
+                </xpath>
+            </field>
+        </record>
+<!--        Kanban form view-->
+        <record id="ks_quick_create_task_form" model="ir.ui.view">
+            <field name="name">ks.project.task.form.quick_create</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.quick_create_task_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="name"]' position="after">
+                    <field name="project_id" required="1"/>
+                    <field name="sprint_id" readonly="0" required="1"/>
+                    <field name="release_id" required="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
