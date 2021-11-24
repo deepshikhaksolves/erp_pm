@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data noupdate="0">
+		<!-- Sprint Build Reminder Scheduler -->
+		<record id="sprint_build_reminder_mail_scheduler" model="ir.cron">
+			<field name="name">Sprint Build Reminder Mail Scheduler</field>
+			<field name="model_id" ref="model_project_scrum_sprint"/>
+			<field name="state">code</field>
+			<field name="code">model.reminder_sprint_build()</field>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+			<field name="priority">2</field>
+		</record>
+
+		<!-- Sprint Delivery Reminder Scheduler -->
+		<record id="sprint_delivery_reminder_mail_scheduler" model="ir.cron">
+			<field name="name">Sprint Delivery Reminder Mail Scheduler</field>
+			<field name="model_id" ref="model_project_scrum_sprint"/>
+			<field name="state">code</field>
+			<field name="code">model.reminder_sprint_delivery()</field>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+			<field name="priority">2</field>
+		</record>
+
+		<!-- Sprint UAT Reminder Scheduler -->
+		<record id="sprint_uat_reminder_mail_scheduler" model="ir.cron">
+			<field name="name">Sprint UAT Reminder Mail Scheduler</field>
+			<field name="model_id" ref="model_project_scrum_sprint"/>
+			<field name="state">code</field>
+			<field name="code">model.reminder_sprint_uat()</field>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+			<field name="priority">2</field>
+		</record>
+
+		<!-- Client Delivery Reminder Scheduler -->
+		<record id="client_delivery_reminder_mail_scheduler" model="ir.cron">
+			<field name="name">Client Delivery Reminder Mail Scheduler</field>
+			<field name="model_id" ref="model_project_scrum_sprint"/>
+			<field name="state">code</field>
+			<field name="code">model.reminder_client_delivery()</field>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+			<field name="priority">2</field>
+		</record>
+	</data>
+</odoo>

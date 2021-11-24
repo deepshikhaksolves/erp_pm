@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="sprint_uat_reminder_mail_template" model="mail.template">
+          <field name="name">Sprint UAT e-mail template</field>
+          <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
+          <field name="subject">${object.project_id.name} | ${object.name} | UAT Reminder</field>
+          <field name="email_to">${ctx['email_to']}</field>
+          <field name="model_id" ref="ks_project_scrum.model_project_scrum_sprint"/>
+          <field name="auto_delete" eval="False"/>
+            <field name="body_html" >
+                    <![CDATA[
+                    <table border="0">
+                        <tr>
+                            <td>
+                                <div style="margin-left: 1.2rem;margin-bottom:1em;">
+                                    <p style="color: #676767;line-height: 145%;margin: 10px 0 0 0;font-size: 16px;">
+                                        Hi Team,
+                                    </p>
+                                </div>
+                                <div style="margin-left: 1.2rem;margin-bottom:1em;">
+                                    <p style="color: #676767;line-height: 145%;margin: 10px 0 0 0;font-size: 16px;">
+                                        This is a gentle reminder that the UAT date for ${object.project_id.name} : ${object.name} is due on ${object.ks_uat_date}.
+                                    </p>
+                                </div>
+
+                                <div style="margin-left: 1.2rem;margin-bottom:1em;">
+                                    <p style="color: #676767;line-height: 145%;margin: 10px 0 0 0;font-size: 16px;">
+                                        This is an auto-generated mail . Please do not reply to this mail.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                ]]>
+            </field>
+       </record>
+    </data>
+</odoo>

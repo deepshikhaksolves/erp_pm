@@ -40,6 +40,11 @@
         'data/ks_project_type_data.xml',
         'views/project_project_view.xml',
         'views/project_task_view.xml'
+        'views/email/build_ready_reminder_email.xml',
+        'views/email/sprint_delivery_reminder_email_template.xml',
+        'views/email/sprint_uat_email.xml',
+        'views/email/client_delivery_reminder_email_template.xml',
+        'views/ir_cron.xml',
     ],
     "application": True,
     "installable": True,

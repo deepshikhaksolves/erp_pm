@@ -2,7 +2,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-
+from datetime import datetime, timedelta
 
 class KsProjectScrumRelease(models.Model):
     _inherit = 'project.scrum.release'
@@ -46,7 +46,7 @@ class KsProjectScrumSprint(models.Model):
                              copy=False)
     ks_delivery_date = fields.Date(string='Delivery/Deployment Date',
                                    required=True, copy=False)
-    ks_uat_date = fields.Date(string='UAT Date', required=True,
+    ks_uat_date = fields.Date(string='UAT End Date', required=True,
                               copy=False)
     ks_bug_fix_date = fields.Date(string='Buf fixes Date', copy=False)
     ks_internal_eta_date = fields.Date(string='Internal ETA Date', required=True,
@@ -57,8 +57,8 @@ class KsProjectScrumSprint(models.Model):
                                       copy=False)
     ks_internal_delivery_date = fields.Date(string='Internal Delivery/Deployment Date',
                                             required=True, copy=False)
-    ks_internal_uat_date = fields.Date(string='Internal UAT Date', required=True,
-                                       copy=False)
+    # ks_internal_uat_date = fields.Date(string='Internal UAT Date', required=True,
+    #                                    copy=False)
     ks_internal_bug_fix_date = fields.Date(string='Internal Bug fixes Date', copy=False)
 
     @api.constrains('ks_sprint_code', 'name')
@@ -107,3 +107,99 @@ class KsProjectScrumSprint(models.Model):
                 raise ValidationError(
                     _("This release is already linked with another sprint. Please create a new release with this "
                       "sprint."))
+
+    """ Scheduler for sprint build reminder """
+    @api.model
+    def reminder_sprint_build(self):
+        try:
+            tomorrow = datetime.now() + timedelta(1)
+            sprint_rec = self.env['project.scrum.sprint'].sudo().search([])
+            for rec in sprint_rec:
+                to_email_list = rec.project_id.team_id.employee_ids.mapped('work_email')
+                if rec.product_owner_id:
+                    to_email_list.append(rec.product_owner_id.employee_ids.work_email)
+                if rec.project_id.product_owner_id:
+                    to_email_list.append(rec.project_id.product_owner_id.employee_ids.work_email)
+                if rec.scrum_master_id:
+                    to_email_list.append(rec.scrum_master_id.employee_ids.work_email)
+                email = set(to_email_list)
+                to_email_ids = ",".join(email)
+                if str(rec.ks_internal_qa_date) == tomorrow.strftime('%Y-%m-%d'):
+                    template = self.env.ref('ks_project_scrum.build_reminder_mail_template')
+                    mail = self.env['mail.template'].browse(template.id).with_context(email_to=to_email_ids).send_mail(rec.id, force_send=False)
+
+        except Exception as e:
+            print("Sprint Build cron error: ", e)
+            pass
+    
+    """ Scheduler for sprint delivery reminder """
+    @api.model
+    def reminder_sprint_delivery(self):
+        try:
+            tomorrow = datetime.now() + timedelta(1)
+            sprint_rec = self.env['project.scrum.sprint'].sudo().search([])
+            for rec in sprint_rec:
+                to_email_list = rec.project_id.team_id.employee_ids.mapped('work_email')
+                if rec.product_owner_id:
+                    to_email_list.append(rec.product_owner_id.employee_ids.work_email)
+                if rec.project_id.product_owner_id:
+                    to_email_list.append(rec.project_id.product_owner_id.employee_ids.work_email)
+                if rec.scrum_master_id:
+                    to_email_list.append(rec.scrum_master_id.employee_ids.work_email)
+                email = set(to_email_list)
+                to_email_ids = ",".join(email)
+                if str(rec.ks_internal_delivery_date) == tomorrow.strftime('%Y-%m-%d'):
+                    template = self.env.ref('ks_project_scrum.sprint_delivery_reminder_mail_template')
+                    mail = self.env['mail.template'].browse(template.id).with_context(email_to=to_email_ids).send_mail(rec.id, force_send=False)
+
+        except Exception as e:
+            print("Sprint Delivery cron error: ", e)
+            pass
+
+    """ Scheduler for Sprint Client UAT reminder """
+    @api.model
+    def reminder_sprint_uat(self):
+        try:
+            tomorrow = datetime.now() + timedelta(1)
+            sprint_rec = self.env['project.scrum.sprint'].sudo().search([])
+            for rec in sprint_rec:
+                to_email_list = rec.project_id.team_id.employee_ids.mapped('work_email')
+                if rec.product_owner_id:
+                    to_email_list.append(rec.product_owner_id.employee_ids.work_email)
+                if rec.project_id.product_owner_id:
+                    to_email_list.append(rec.project_id.product_owner_id.employee_ids.work_email)
+                if rec.scrum_master_id:
+                    to_email_list.append(rec.scrum_master_id.employee_ids.work_email)
+                email = set(to_email_list)
+                to_email_ids = ",".join(email)
+                if str(rec.ks_uat_date) == tomorrow.strftime('%Y-%m-%d'):
+                    template = self.env.ref('ks_project_scrum.sprint_uat_reminder_mail_template')
+                    mail = self.env['mail.template'].browse(template.id).with_context(email_to=to_email_ids).send_mail(rec.id, force_send=False)
+
+        except Exception as e:
+            print("Client UAT cron error: ", e)
+            pass
+
+    """ Scheduler for Client Delivery reminder """
+    @api.model
+    def reminder_client_delivery(self):
+        try:
+            tomorrow = datetime.now() + timedelta(1)
+            sprint_rec = self.env['project.scrum.sprint'].sudo().search([])
+            for rec in sprint_rec:
+                to_email_list = rec.project_id.team_id.employee_ids.mapped('work_email')
+                if rec.product_owner_id:
+                    to_email_list.append(rec.product_owner_id.employee_ids.work_email)
+                if rec.project_id.product_owner_id:
+                    to_email_list.append(rec.project_id.product_owner_id.employee_ids.work_email)
+                if rec.scrum_master_id:
+                    to_email_list.append(rec.scrum_master_id.employee_ids.work_email)
+                email = set(to_email_list)
+                to_email_ids = ",".join(email)
+                if str(rec.ks_delivery_date) == tomorrow.strftime('%Y-%m-%d'):
+                    template = self.env.ref('ks_project_scrum.client_delivery_reminder_mail_template')
+                    mail = self.env['mail.template'].browse(template.id).with_context(email_to=to_email_ids).send_mail(rec.id, force_send=False)
+
+        except Exception as e:
+            print("Client Delivery cron error: ", e)
+            pass
