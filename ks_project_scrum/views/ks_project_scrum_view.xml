@@ -12,9 +12,14 @@
                         <field string="Tasks" name="sprint_tasks_count" widget="statinfo"/>
                     </button>
                 </xpath>
-                <!-- Adding sprint code on form view.      -->
+                <!-- Making project_id required field.  -->
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                     <attribute name="required">1</attribute>
+                </xpath>
+                <!-- Adding sprint code on form view.    -->
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="ks_sprint_code"/>
+                    <field name="ks_project_type_id" invisble="1"/>
                 </xpath>
                 <!--  Internal schedule dates for a sprint.  -->
                 <xpath expr="//field[@name='expected_hours']/.." position="after">

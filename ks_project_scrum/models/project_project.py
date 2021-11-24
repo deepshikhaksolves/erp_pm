@@ -6,7 +6,7 @@ from odoo import api, fields, models
 class Project(models.Model):
     _inherit = "project.project"
 
-    ks_project_type = fields.Many2one('ks.project.type', string='Project Type')
+    ks_project_type = fields.Many2one('ks.project.type', string='Project Type', required=True)
     ks_billing_type = fields.Selection([('Fixed', 'Fixed'),
                                         ('Monthly', 'Monthly')], string="Billing Type")
     ks_short_code = fields.Char(string="Short Code", required=True,

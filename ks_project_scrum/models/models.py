@@ -29,6 +29,8 @@ class KsProjectScrumSprint(models.Model):
 
     sprint_tasks_count = fields.Integer(string="Tasks",
                                         compute='get_sprint_tasks_count')
+    ks_project_type_id = fields.Many2one('ks.project.type', string='Project Type',
+                                         related='project_id.ks_project_type')
     ks_sprint_code = fields.Char(string="Sprint code", required=True)
     _sql_constraints = [('uniq_name', 'unique(ks_sprint_code)',
                          "A Sprint code already exists with this name. Sprint Code name must be unique!"),
