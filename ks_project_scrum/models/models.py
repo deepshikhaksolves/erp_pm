@@ -61,7 +61,7 @@ class KsProjectScrumSprint(models.Model):
     #                                    copy=False)
     ks_internal_bug_fix_date = fields.Date(string='Internal Bug fixes Date', copy=False)
     ks_project_sprint_checklist_ids = fields.One2many('ks.sprint.checklist', 'sprint_id',
-                                                      string="Sprint Checklist", help="Link to Sprint Checklist.")
+                                                      string="Documents", help="Link to Sprint Checklist.")
     ks_doc_count = fields.Integer(compute='_compute_attached_docs_count', string="Number of documents attached")
 
     @api.constrains('ks_sprint_code', 'name')

@@ -22,6 +22,7 @@
                     <group>
                         <field name="name" required="1"/>
                         <field name="ks_project_type_id"/>
+                        <field name="visible_to_manager"/>
                     </group>
                 </sheet>
             </form>

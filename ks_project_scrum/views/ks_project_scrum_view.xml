@@ -50,7 +50,7 @@
                 </xpath>
 
                 <xpath expr="//notebook/page[last()]" position="after">
-                    <page string="Sprint Checklist" name="sprint_checklist">
+                    <page string="Documents" name="sprint_checklist">
                         <field name="ks_project_sprint_checklist_ids">
                             <tree>
                                 <field name="name"/>
