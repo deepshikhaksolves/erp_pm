@@ -8,6 +8,7 @@
             <tree string="Sprint Checklist Option">
                 <field name="name"/>
                 <field name="ks_project_type_id"/>
+                <field name="visible_to_manager"/>
             </tree>
         </field>
     </record>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+    
+		<record id="project_user_record_rule" model="ir.rule">
+            <field name="name">Project : User only</field>
+            <field name="model_id" ref="model_ks_sprint_checklist"/>
+            <field name="domain_force">[('name.visible_to_manager', '=', False)]</field>
+            <field name="groups" eval="[(4,ref('project.group_project_user'))]"/>
+        </record>
+
+        <record id="project_manager_record_rule" model="ir.rule">
+            <field name="name">Project : Manager only</field>
+            <field name="model_id" ref="model_ks_sprint_checklist"/>
+            <field name="domain_force">[('name.visible_to_manager', '=', True)]</field>
+            <field name="groups" eval="[(4,ref('project.group_project_manager'))]"/>
+        </record>
+	</data>
+</odoo>

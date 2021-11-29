@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <!--Adding a new relation with role model.-->
                 <xpath expr="//field[@name='developer_ids']" position="after">
+                    <field name="employee_ids" widget="many2many" invisible='1'/>
                     <field name="scrum_team_member_ids" widget="many2many">
                          <kanban quick_create="false" create="true" delete="true">
                              <field name="id"/>

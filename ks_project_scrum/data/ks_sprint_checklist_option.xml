@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data noupdate="1">
+        <!-- Default records on 'ks.sprint.checklist.option' on model. -->
+        <record id="ks_sprint_checklist_option1" model="ks.sprint.checklist.option">
+            <field name="name">SOW</field>
+            <field name="visible_to_manager">True</field>
+        </record>
+        <record id="ks_sprint_checklist_option2" model="ks.sprint.checklist.option">
+            <field name="name">Efforts</field>
+            <field name="visible_to_manager">True</field>
+        </record>
+        <record id="ks_sprint_checklist_option3" model="ks.sprint.checklist.option">
+            <field name="name">ETA</field>
+            <field name="visible_to_manager">True</field>
+        </record>
+        <record id="ks_sprint_checklist_option4" model="ks.sprint.checklist.option">
+            <field name="name">Meeting Recordings</field>
+            <field name="visible_to_manager">False</field>
+        </record>
+    </data>
+</odoo>

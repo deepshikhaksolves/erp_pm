@@ -27,7 +27,7 @@
     'depends': ['website_helpdesk_support_ticket', 'project_scrum_portal', 'hr_holidays', 'project'],
     'data': [
         'security/ir.model.access.csv',
-        'static/ir.model.access.csv',
+        'security/security.xml',
         'views/assets.xml',
         'views/ks_project_scrum_release_view.xml',
         'views/ks_project_scrum_view.xml',
@@ -46,6 +46,7 @@
         'views/email/sprint_delivery_reminder_email_template.xml',
         'views/email/sprint_uat_email.xml',
         'views/email/client_delivery_reminder_email_template.xml',
+        'data/ks_sprint_checklist_option.xml',
         'views/ir_cron.xml',
     ],
     "application": True,

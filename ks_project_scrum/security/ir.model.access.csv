@@ -2,3 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_ks_sprint_checklist_option,ks.sprint.checklist.option,model_ks_sprint_checklist_option,,1,1,1,1
 access_ks_sprint_checklist,ks.sprint.checklist,model_ks_sprint_checklist,,1,1,1,1
 
+access_project_type_developer,ks_project_scrum.access_project_type_developer,model_ks_project_type,project_scrum_agile.group_scrum_developer,1,1,1,1
+access_role_designation_developer,ks_project_scrum.access_role_designation_developer,model_ks_role_designation,project_scrum_agile.group_scrum_developer,1,1,1,1
+
+access_attachment,ks_project_scrum.access_attachment,model_ir_attachment,,1,1,1,1
