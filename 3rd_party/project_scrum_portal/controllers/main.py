@@ -328,12 +328,12 @@ class CustomerPortal(CustomerPortal):
                     }
                     burndown_list2.append(data1)
             current_sprint = request.env['project.scrum.sprint'].sudo().browse(int(post.get('sprint_id')))
-            ks_eta_date = current_sprint.ks_eta_date,
-            ks_sow_date = current_sprint.ks_sow_date,
-            ks_qa_date = current_sprint.ks_qa_date,
-            ks_delivery_date = current_sprint.ks_delivery_date,
-            ks_uat_date = current_sprint.ks_uat_date,
-            ks_bug_fix_date = current_sprint.ks_bug_fix_date,
+            ks_eta_date = current_sprint.ks_eta_date if current_sprint.ks_eta_date else None,
+            ks_sow_date = current_sprint.ks_sow_date if current_sprint.ks_sow_date else None,
+            ks_qa_date = current_sprint.ks_qa_date if current_sprint.ks_qa_date else None,
+            ks_delivery_date = current_sprint.ks_delivery_date if current_sprint.ks_delivery_date else None,
+            ks_uat_date = current_sprint.ks_uat_date if current_sprint.ks_uat_date else None,
+            ks_bug_fix_date = current_sprint.ks_bug_fix_date if current_sprint.ks_bug_fix_date else None,
 
         result = {
                   'remaining_points': burndown_list1,
