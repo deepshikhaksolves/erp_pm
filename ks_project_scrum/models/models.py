@@ -38,25 +38,16 @@ class KsProjectScrumSprint(models.Model):
     ks_sprint_sequence_id = fields.Many2one(comodel_name='ir.sequence', string="Sprint Sequence")
     release_id = fields.Many2one('project.scrum.release', string='Release',
                                  copy=False)
-    ks_eta_date = fields.Date(string='ETA Date', required=True,
-                              copy=False)
-    ks_sow_date = fields.Date(string='SOW Date', required=True,
-                              copy=False)
-    ks_qa_date = fields.Date(string='QA Date', required=True,
-                             copy=False)
-    ks_delivery_date = fields.Date(string='Delivery/Deployment Date',
-                                   required=True, copy=False)
-    ks_uat_date = fields.Date(string='UAT End Date', required=True,
-                              copy=False)
+    ks_eta_date = fields.Date(string='ETA Date', copy=False)
+    ks_sow_date = fields.Date(string='SOW Date', copy=False)
+    ks_qa_date = fields.Date(string='QA Date', copy=False)
+    ks_delivery_date = fields.Date(string='Delivery/Deployment Date', copy=False)
+    ks_uat_date = fields.Date(string='UAT End Date', copy=False)
     ks_bug_fix_date = fields.Date(string='Bug fixes Date', copy=False)
-    ks_internal_eta_date = fields.Date(string='Internal ETA Date', required=True,
-                                       copy=False)
-    ks_internal_sow_date = fields.Date(string='Internal SOW Date', required=True,
-                                       copy=False)
-    ks_internal_qa_date = fields.Date(string='Internal QA Date', required=True,
-                                      copy=False)
-    ks_internal_delivery_date = fields.Date(string='Internal Delivery/Deployment Date',
-                                            required=True, copy=False)
+    ks_internal_eta_date = fields.Date(string='Internal ETA Date', copy=False)
+    ks_internal_sow_date = fields.Date(string='Internal SOW Date', copy=False)
+    ks_internal_qa_date = fields.Date(string='Internal QA Date', copy=False)
+    ks_internal_delivery_date = fields.Date(string='Internal Delivery/Deployment Date', copy=False)
     # ks_internal_uat_date = fields.Date(string='Internal UAT Date', required=True,
     #                                    copy=False)
     ks_internal_bug_fix_date = fields.Date(string='Internal Bug fixes Date', copy=False)
@@ -111,6 +102,7 @@ class KsProjectScrumSprint(models.Model):
             'res_model': 'project.task',
             'view_mode': 'kanban,tree,form,calendar,pivot,graph,activity',
             'domain': [('sprint_id', '=', self.id)],
+            # 'context':{'active_sprint_id': self.id , 'search_default_by_sprint': 1}
         }
 
     def get_sprint_tasks_count(self):

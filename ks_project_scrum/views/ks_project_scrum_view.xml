@@ -73,7 +73,7 @@
                     </page>
                 </xpath>
                 <xpath expr="//field[@name='release_id']" position="replace">
-                    <field name="release_id" domain="[('project_id', '=', project_id)]" required="1" context="{'default_project_id': project_id}"/>
+                    <field name="release_id" domain="[('project_id', '=', project_id)]" required="1" context="{'default_project_id': project_id, 'default_date_start': date_start, 'default_date_stop': date_stop}"/>
                 </xpath>
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="sprint_number"/>
