@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 _TASK_STATE = [
     ("draft", "New"),
@@ -9,6 +10,7 @@ _TASK_STATE = [
     ("done", "Done"),
     ("cancelled", "Cancelled"),
 ]
+
 
 class Project(models.Model):
     _inherit = "project.project"
@@ -42,3 +44,76 @@ class Project(models.Model):
                     "padding": 3
                 })
                 self.ks_project_sequence_id = seq.id
+
+    def create(self, vals):
+        """Add project followers."""
+        res = super(Project, self).create(vals)
+        team_id = vals.get('team_id')
+        if team_id:
+            team = self.env['project.scrum.devteam'].browse(team_id)
+            if team.employee_ids:
+                # Add new followers from team.
+                for team_member in team.employee_ids:
+                    self.env['mail.followers'].sudo().create({
+                        'res_model': 'project.project',
+                        'partner_id': team_member.user_partner_id.id,
+                        'res_id': self.id})
+                #    Add customer, project owner and scrum master as follower.
+                self.env['mail.followers'].sudo().create({
+                    'res_model': 'project.project',
+                    'partner_id': self.partner_id.id,
+                    'res_id': self.id})
+
+                for user_id in [self.product_owner_id, self.scrum_master_id]:
+                    self.env['mail.followers'].sudo().create({
+                        'res_model': 'project.project',
+                        'partner_id': user_id.partner_id.id,
+                        'res_id': self.id})
+
+            else:
+                raise ValidationError(_("No Team member is added in team!.."))
+
+            return res
+
+    def write(self, vals):
+        """Update project followers if team is changed."""
+        res = super(Project, self).write(vals)
+        team_id = vals.get('team_id')
+        if team_id:
+            team = self.env['project.scrum.devteam'].browse(team_id)
+            if team.employee_ids:
+                # Remove the existing followers
+                existing_followers = self.env['mail.followers'].search([
+                    ('res_id', '=', self.id),
+                    ('res_model', '=', 'project.project')])
+                existing_followers.unlink()
+                # Add new followers from team.
+                for team_member in team.employee_ids:
+                    self.env['mail.followers'].sudo().create({
+                                                        'res_model': 'project.project',
+                                                        'partner_id': team_member.user_partner_id.id,
+                                                        'res_id': self.id})
+                #    Add customer, project owner and scrum master as follower.
+                self.env['mail.followers'].sudo().create({
+                                'res_model': 'project.project',
+                                'partner_id': self.partner_id.id,
+                                'res_id': self.id})
+
+                for user_id in [self.product_owner_id, self.scrum_master_id]:
+                    self.env['mail.followers'].sudo().create({
+                        'res_model': 'project.project',
+                        'partner_id': user_id.partner_id.id,
+                        'res_id': self.id})
+
+            else:
+                raise ValidationError(_("No Team member is added in team!.."))
+
+        return res
+
+    def unlink(self):
+        """Remove followers when record is deleted for a project."""
+        res = super(Project, self).unlink()
+        existing_followers = self.env['mail.followers'].search([
+            ('res_id', '=', self.id),
+            ('res_model', '=', 'project.project')])
+        return res
