@@ -9,7 +9,7 @@ class KsSprintCheckListOption(models.Model):
 
     name = fields.Char(string='Name')
     ks_project_type_id = fields.Many2one('ks.project.type', string='Project Type')
-    visible_to_manager = fields.Boolean(string='Visible To Manager')
+    visible_to_manager = fields.Boolean(string='Visible To Scrum Master')
 
 class KsSprintCheckList(models.Model):
     _name = 'ks.sprint.checklist'

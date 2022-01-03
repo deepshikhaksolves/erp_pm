@@ -28,24 +28,24 @@
                 <xpath expr="//field[@name='expected_hours']/.." position="after">
                     <group name="ks_sprint_dates">
                         <group string="Internal Dates">
-                            <field name="ks_internal_eta_date"/>
-                            <field name="ks_internal_sow_date"/>
-                            <field name="ks_internal_qa_date"/>
-                            <field name="ks_internal_delivery_date"/>
+                            <field name="ks_internal_eta_date" required="0"/>
+                            <field name="ks_internal_sow_date" required="0"/>
+                            <field name="ks_internal_qa_date" required="0"/>
+                            <field name="ks_internal_delivery_date" required="0"/>
                             <!-- <field name="ks_internal_uat_date"/> -->
-                            <field name="ks_internal_bug_fix_date"/>
+                            <field name="ks_internal_bug_fix_date" required="0"/>
                         </group>
                     </group>
                 </xpath>
                 <!--  Client commitment dates for a sprint.  -->
                 <xpath expr="//group[@name='ks_sprint_dates']" position="inside">
-                    <group string="Clients Dates">
-                        <field name="ks_eta_date"/>
-                        <field name="ks_sow_date"/>
-                        <field name="ks_qa_date"/>
-                        <field name="ks_delivery_date"/>
-                        <field name="ks_uat_date"/>
-                        <field name="ks_bug_fix_date"/>
+                    <group string="Clients Dates" required="0">
+                        <field name="ks_eta_date" required="0"/>
+                        <field name="ks_sow_date" required="0"/>
+                        <field name="ks_qa_date" required="0"/>
+                        <field name="ks_delivery_date" required="0"/>
+                        <field name="ks_uat_date" required="0"/>
+                        <field name="ks_bug_fix_date" required="0"/>
                     </group>
                 </xpath>
 
@@ -55,7 +55,7 @@
                             <tree>
                                 <field name="name"/>
                                 <field name="is_completed" widget="boolean_toggle"/>
-                                <field name="attachment" string="Select Files"/>
+                                <field name="attachment" string="Select Files" widget="many2many_tags" />
                                 <field name="project_type" invisible="1"/>
                             </tree>
                             <form>
@@ -71,6 +71,31 @@
                             </form>
                         </field>
                     </page>
+                </xpath>
+                <xpath expr="//field[@name='release_id']" position="replace">
+                    <field name="release_id" domain="[('project_id', '=', project_id)]" required="1" context="{'default_project_id': project_id}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_project_scrum_sprint_tree_project_scrum_agile" model="ir.ui.view">
+            <field name="name">project.scrum.sprint.view.form.inherit</field>
+            <field name="model">project.scrum.sprint</field>
+            <field name="inherit_id" ref="project_scrum_agile.view_project_scrum_sprint_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Sprint">
+                        <!-- <field name="sprint_number"/> -->
+                        <field name="project_id"/>
+                        <field name="name"/>
+                        <field name="release_id"/>
+                        <field name="scrum_master_id"/>
+                        <field name="product_owner_id"/>
+                        <field name="date_start"/>
+                        <field name="date_stop"/>
+                        <field name="effective_velocity"/>
+                        <field name="progress" widget="progressbar"/>
+                        <field name="state"/>
+                    </tree>
                 </xpath>
             </field>
         </record>

@@ -48,7 +48,7 @@ class KsProjectScrumSprint(models.Model):
                                    required=True, copy=False)
     ks_uat_date = fields.Date(string='UAT End Date', required=True,
                               copy=False)
-    ks_bug_fix_date = fields.Date(string='Buf fixes Date', copy=False)
+    ks_bug_fix_date = fields.Date(string='Bug fixes Date', copy=False)
     ks_internal_eta_date = fields.Date(string='Internal ETA Date', required=True,
                                        copy=False)
     ks_internal_sow_date = fields.Date(string='Internal SOW Date', required=True,
@@ -63,31 +63,46 @@ class KsProjectScrumSprint(models.Model):
     ks_project_sprint_checklist_ids = fields.One2many('ks.sprint.checklist', 'sprint_id',
                                                       string="Documents", help="Link to Sprint Checklist.")
     ks_doc_count = fields.Integer(compute='_compute_attached_docs_count', string="Number of documents attached")
-
-    @api.constrains('ks_sprint_code', 'name')
-    def create_project_sprint_sequence(self):
-        """For creating project sequence on create of project.
-        This runs on create, write and duplicating record."""
-        if self.ks_sprint_code and self.name:
-            ks_sprint_code = self.ks_sprint_code.upper()
-            if self.project_id:
-                if self.project_id.is_scrum:
-                    # Create project sprint sequence if not a scrum project.
-                    project_sprint = self.project_id.ks_short_code.upper() + ' - ' + ks_sprint_code
-                    seq = self.env['ir.sequence'].create({
-                        "name": "Project %s - Sprint %s Sequence" % (self.project_id.name, self.name),
-                        "code": "project.project %s" % ks_sprint_code,
-                        "prefix": "(# %s - " % project_sprint,
-                        "suffix": ")",
-                        "padding": 3
-                    })
-                    self.ks_sprint_sequence_id = seq.id
-                else:
-                    raise ValidationError(
-                        _("Project related to this sprint doesn't have scrum option enable. "))
-            else:
-                raise ValidationError(
-                    _("Please add project in this sprint."))
+    product_owner_id = fields.Many2one(
+        'res.users',
+        'Product Owner',
+        related='project_id.product_owner_id',
+        domain=lambda self: [('groups_id', 'in', self.env.ref(
+            'project_scrum_agile.group_scrum_owner').ids)],
+        help="The person who is responsible for the product"
+    )
+    scrum_master_id = fields.Many2one(
+        'res.users',
+        'Scrum Master',
+        related='project_id.scrum_master_id',
+        domain=lambda self: [('groups_id', 'in', self.env.ref(
+            'project_scrum_agile.group_scrum_master').ids)],
+        help="The person who maintains the process for the product"
+    )
+    # @api.constrains('ks_sprint_code', 'name')
+    # def create_project_sprint_sequence(self):
+    #     """For creating project sequence on create of project.
+    #     This runs on create, write and duplicating record."""
+    #     if self.ks_sprint_code and self.name:
+    #         ks_sprint_code = self.ks_sprint_code.upper()
+    #         if self.project_id:
+    #             if self.project_id.is_scrum:
+    #                 # Create project sprint sequence if not a scrum project.
+    #                 project_sprint = self.project_id.ks_short_code.upper() + ' - ' + ks_sprint_code
+    #                 seq = self.env['ir.sequence'].create({
+    #                     "name": "Project %s - Sprint %s Sequence" % (self.project_id.name, self.name),
+    #                     "code": "project.project %s" % ks_sprint_code,
+    #                     "prefix": "(# %s - " % project_sprint,
+    #                     "suffix": ")",
+    #                     "padding": 3
+    #                 })
+    #                 self.ks_sprint_sequence_id = seq.id
+    #             else:
+    #                 raise ValidationError(
+    #                     _("Project related to this sprint doesn't have scrum option enable. "))
+    #         else:
+    #             raise ValidationError(
+    #                 _("Please add project in this sprint."))
 
     def ks_sprint_tasks(self):
         return {

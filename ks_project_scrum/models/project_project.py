@@ -2,19 +2,29 @@
 
 from odoo import api, fields, models
 
+_TASK_STATE = [
+    ("draft", "New"),
+    ("open", "In Progress"),
+    ("pending", "Pending"),
+    ("done", "Done"),
+    ("cancelled", "Cancelled"),
+]
 
 class Project(models.Model):
     _inherit = "project.project"
 
     ks_project_type = fields.Many2one('ks.project.type', string='Project Type', required=True)
-    ks_billing_type = fields.Selection([('Fixed', 'Fixed'),
-                                        ('Monthly', 'Monthly')], string="Billing Type")
+    ks_billing_type = fields.Selection([('Fixed', 'Fixed Project'),
+                                        ('Monthly', 'TnM Project')], string="Billing Type")
     ks_short_code = fields.Char(string="Short Code", required=True,
                                 help="This code will be used on tasks being created for this project.")
     ks_project_sequence_id = fields.Many2one(comodel_name='ir.sequence', string="Project Sequence")
     _sql_constraints = [('uniq_name', 'unique(ks_short_code)',
                          "A Short code already exists with this name . Short Code name must be unique!"),
                         ]
+    project_start_date = fields.Date(string='Project Start Date')
+    project_end_date = fields.Date(string='Project End Date')
+    state = fields.Selection(_TASK_STATE)
 
     @api.constrains('ks_short_code', 'name')
     def create_project_sequence(self):
