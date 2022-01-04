@@ -45,4 +45,17 @@ class ProjectTask(models.Model):
 
             else:
                 raise ValidationError(_("Please add project in this task."))
+            # For adding special features on project followers.
+            list = []
+            list.extend(self.env['mail.message.subtype'].search([('res_model', '=', 'project.task'),
+                                                                        ('name', 'in',
+                                                                         ['Task Rating',
+                                                                          'Change of State Task',
+                                                                          'Assigned Task',
+                                                                          'Blocked Task',
+                                                                          'Closed Task'])]).ids)
+            list.extend(self.env['mail.message.subtype'].search([('res_model', '!=', True),
+                                                                 ('name', 'in',
+                                                                  ['Discussions', 'Activities'])]).ids)
+            res.message_follower_ids.update({'subtype_ids': list})
         return res

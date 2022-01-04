@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data noupdate="1">
-    
-		<record id="project_user_record_rule" model="ir.rule">
-            <field name="name">Project : User only</field>
-            <field name="model_id" ref="model_ks_sprint_checklist"/>
-            <field name="domain_force">[('name.visible_to_manager', '=', False)]</field>
-            <field name="groups" eval="[(4,ref('project.group_project_user'))]"/>
-        </record>
+    <record id="project_user_record_rule" model="ir.rule">
+        <field name="name">Project : User only</field>
+        <field name="model_id" ref="model_ks_sprint_checklist"/>
+        <field name="domain_force">[('name.visible_to_manager', '=', False)]</field>
+        <field name="groups" eval="[(4,ref('project.group_project_user'))]"/>
+    </record>
 
-        <record id="project_manager_record_rule" model="ir.rule">
-            <field name="name">Project : Manager only</field>
-            <field name="model_id" ref="model_ks_sprint_checklist"/>
-            <field name="domain_force">[('name.visible_to_manager', '=', True)]</field>
-            <field name="groups" eval="[(4,ref('project.group_project_manager'))]"/>
-        </record>
+    <record id="project_manager_record_rule" model="ir.rule">
+        <field name="name">Project : Manager only</field>
+        <field name="model_id" ref="model_ks_sprint_checklist"/>
+        <field name="domain_force">[('name.visible_to_manager', '=', True)]</field>
+        <field name="groups" eval="[(4,ref('project.group_project_manager'))]"/>
+    </record>
 
-        <record id="project_psirnt_checklist_option_rule" model="ir.rule">
-            <field name="name">Project Document visiblity to Devloper</field>
-            <field name="model_id" ref="ks_project_scrum.model_ks_sprint_checklist_option"/>
-            <field name="domain_force">[('visible_to_manager', '=', True)]
-            </field>
-            <field name="groups" eval="[
-                (4, ref('project_scrum_agile.group_scrum_developer'))
-            ]"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_write" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
-            <field name="perm_read" eval="0"/>
-        </record>
-	</data>
+    <record id="project_sprint_checklist_option_rule" model="ir.rule">
+        <field name="name">Sprint document visible to developer</field>
+        <field name="model_id" ref="ks_project_scrum.model_ks_sprint_checklist_option"/>
+        <field name="domain_force">[('visible_to_manager', '!=', True)]</field>
+        <field name="groups" eval="[(4, ref('project_scrum_agile.group_scrum_developer'))]"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_read" eval="1"/>
+    </record>
 </odoo>
