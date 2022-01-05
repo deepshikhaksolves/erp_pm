@@ -48,12 +48,12 @@ class ProjectTask(models.Model):
             # For adding special features on project followers.
             list = []
             list.extend(self.env['mail.message.subtype'].search([('res_model', '=', 'project.task'),
-                                                                        ('name', 'in',
-                                                                         ['Task Rating',
-                                                                          'Change of State Task',
-                                                                          'Assigned Task',
-                                                                          'Blocked Task',
-                                                                          'Closed Task'])]).ids)
+                                                                 ('name', 'in',
+                                                                  ['Task Rating',
+                                                                   'Change of State Task',
+                                                                   'Assigned Task',
+                                                                   'Blocked Task',
+                                                                   'Closed Task'])]).ids)
             list.extend(self.env['mail.message.subtype'].search([('res_model', '!=', True),
                                                                  ('name', 'in',
                                                                   ['Discussions', 'Activities'])]).ids)

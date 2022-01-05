@@ -13,7 +13,7 @@
                             <tree editable="bottom">
                                 <field name="scrum_devteam_id" />
                                 <field name="project_id"/>
-                                <field name="name"/>
+                                <field name="designation_id"/>
                             </tree>
                         </field>
                     </page>

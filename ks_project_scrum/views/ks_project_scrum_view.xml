@@ -51,7 +51,7 @@
 
                 <xpath expr="//notebook/page[last()]" position="after">
                     <page string="Documents" name="sprint_checklist">
-                        <field name="ks_project_sprint_checklist_ids">
+                        <field name="ks_project_sprint_checklist_ids" widget="one2many_list">
                             <tree>
                                 <field name="name"/>
                                 <field name="is_completed" widget="boolean_toggle"/>
@@ -76,7 +76,7 @@
                     <field name="release_id" domain="[('project_id', '=', project_id)]" required="1" context="{'default_project_id': project_id, 'default_date_start': date_start, 'default_date_stop': date_stop}"/>
                 </xpath>
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="sprint_number"/>
+                    <field name="sprint_number" invisible="1"/>
                 </xpath>
             </field>
         </record>
@@ -97,7 +97,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="replace">
                     <tree string="Sprint">
-                        <field name="sprint_number"/>
+                        <field name="sprint_number" invisible="1"/>
                         <field name="project_id"/>
                         <field name="name"/>
                         <field name="release_id"/>
